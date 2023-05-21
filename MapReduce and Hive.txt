@@ -1,0 +1,216 @@
+1. Design a distributed application using MapReduce(Using Java) which processes a log file of a system. List out the users who have logged for maximum period on the system. Use simple log file from the Internet and process it using a pseudo distribution mode on Hadoop platform. 
+
+Step 1 . Use these 4 files
+
+	access_log_short.txt
+	SalesCountryDriver.java
+	SalesCountryReducer.java
+	SalesMapper.java
+	
+	
+Step 2 :convert access_log_short.txt to csv file   //done
+	
+	
+Step 3 :Go to Eclipse 
+	  create Java Project 
+	   Add Package with name "SalesCountry"
+	   in this package create new 3 java files with name 	 	SalesMapper,SalesCountryDriver,SalesCountryReducer (copy or write code)
+	   
+	   Add 3 jars files through buildpath-->configure Build Path-->Libraries-->add external Jar file
+         
+         usr/local/hadoop/hadoop-2.7.0/share/hadoop(location of jar files)	 
+	   	
+            1. hadoop/mapreduce/hadoop-mapreduce-client-core-2.7.5.jar	 
+	   	2. hadoop/mapreduce/hadoop-mapreduce-client-common-2.7.5.jar
+	   	3. hadoop/common/hadoop-common-2.7.5.jar
+	  
+Step 4: Creation of Jar file with Eclipse 	   	
+	Export-->Java-->Jar files-->assign Name to jar files-->Browse Main class file-->Finish
+
+	
+# create input2000 folder in home and paste the csv file in it.
+
+# START HADOOP by start-all.sh
+
+# Copying input to HDFS file System by following command:
+
+	hdfs dfs -put ~/input2000 /
+	
+# Then to perform Map and Reduce:
+	
+	hadoop jar analyzelogs.jar /input2000 /output2000
+	
+# See the Output by following command:
+
+	hdfs dfs -cat /output2000/part-00000
+
+
+
+Write HiveQL for Flight Reservation
+
+a)	Creating, Dropping, and altering tables. 
+b)	Insert values in tables/ Load the data from flight dataset 
+c)	Display data from table
+d)	Create index. 
+e)	Join 
+
+tudent@student5:~$ strta.all.sh
+strta.all.sh: command not found
+student@student5:~$ start-all.sh
+This script is Deprecated. Instead use start-dfs.sh and start-yarn.sh
+Starting namenodes on [localhost]
+localhost: starting namenode, logging to /usr/local/hadoop/hadoop-2.7.0/logs/hadoop-student-namenode-student5.out
+localhost: starting datanode, logging to /usr/local/hadoop/hadoop-2.7.0/logs/hadoop-student-datanode-student5.out
+Starting secondary namenodes [0.0.0.0]
+0.0.0.0: starting secondarynamenode, logging to /usr/local/hadoop/hadoop-2.7.0/logs/hadoop-student-secondarynamenode-student5.out
+starting yarn daemons
+starting resourcemanager, logging to /usr/local/hadoop/hadoop-2.7.0/logs/yarn-student-resourcemanager-student5.out
+localhost: starting nodemanager, logging to /usr/local/hadoop/hadoop-2.7.0/logs/yarn-student-nodemanager-student5.out
+student@student5:~$ jps
+5204 Jps
+3990 SecondaryNameNode
+4169 ResourceManager
+3596 NameNode
+3725 DataNode
+4301 NodeManager
+
+student@student5:~$ start-hbase.sh
+localhost: starting zookeeper, logging to /usr/local/hbase/bin/../logs/hbase-student-zookeeper-student5.out
+starting master, logging to /usr/local/hbase/logs/hbase-student-master-student5.out
+OpenJDK 64-Bit Server VM warning: ignoring option PermSize=128m; support was removed in 8.0
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=128m; support was removed in 8.0
+starting regionserver, logging to /usr/local/hbase/logs/hbase-student-1-regionserver-student5.out
+student@student5:~$ hbase shell
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/usr/local/hbase/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/hadoop/hadoop-2.7.0/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+HBase Shell; enter 'help<RETURN>' for list of supported commands.
+Type "exit<RETURN>" to leave the HBase Shell
+Version 1.2.6, rUnknown, Mon May 29 02:25:32 CDT 2017
+
+hbase(main):001:0> create 'CustomerInformation','ContactInfo','CustomerName'
+0 row(s) in 2.5910 seconds
+
+=> Hbase::Table - CustomerInformation
+hbase(main):002:0> list
+TABLE                                                                           
+CustomerInformation                                                             
+emp                                                                             
+personal                                                                        
+3 row(s) in 0.0260 seconds
+
+=> ["CustomerInformation", "emp", "personal"]
+hbase(main):003:0> put 'CustomerInformation',1,'ContactInfo:EA','psbangare.sae@sinhgad.edu'
+0 row(s) in 0.2180 seconds
+
+hbase(main):004:0> put 'CustomerInformation',1,'ContactInfo:SA','Pune'
+0 row(s) in 0.0150 seconds
+
+hbase(main):005:0> put 'CustomerInformation',1,'CustomerName:FN','Pallavi'
+0 row(s) in 0.0160 seconds
+
+hbase(main):006:0> put 'CustomerInformation',1,'CustomerName:MN','Sunil'
+0 row(s) in 0.0130 seconds
+
+hbase(main):007:0> put 'CustomerInformation',1,'CustomerName:LN','Bangare'
+0 row(s) in 0.0070 seconds
+
+hbase(main):008:0> put 'CustomerInformation',2,'ContactInfo:EA','abc@gmail.com'
+0 row(s) in 0.0140 seconds
+
+hbase(main):009:0> put 'CustomerInformation',2,'ContactInfo:SA','mumbai'
+0 row(s) in 0.0070 seconds
+
+hbase(main):010:0> put 'CustomerInformation',2,'CustomerName:FN','ABC'
+0 row(s) in 0.0100 seconds
+
+hbase(main):011:0> put 'CustomerInformation',3,'CustomerName:MN','PQR'
+0 row(s) in 0.0100 seconds
+
+hbase(main):012:0> put 'CustomerInformation',2,'CustomerName:MN','PQR'
+0 row(s) in 0.0150 seconds
+
+hbase(main):013:0> put 'CustomerInformation',2,'CustomerName:LN','XYZ'
+0 row(s) in 0.0070 seconds
+
+hbase(main):014:0> scan 'CustomerInformation'
+ROW                   COLUMN+CELL                                               
+ 1                    column=ContactInfo:EA, timestamp=1521176740483, value=psba
+                      ngare.sae@sinhgad.edu                                     
+ 1                    column=ContactInfo:SA, timestamp=1521176766944, value=Pune
+ 1                    column=CustomerName:FN, timestamp=1521176796583, value=Pal
+                      lavi                                                      
+ 1                    column=CustomerName:LN, timestamp=1521176839195, value=Ban
+                      gare                                                      
+ 1                    column=CustomerName:MN, timestamp=1521176825881, value=Sun
+                      il                                                        
+ 2                    column=ContactInfo:EA, timestamp=1521178109345, value=abc@
+                      gmail.com                                                 
+ 2                    column=ContactInfo:SA, timestamp=1521178125827, value=mumb
+                      ai                                                        
+ 2                    column=CustomerName:FN, timestamp=1521178138691, value=ABC
+ 2                    column=CustomerName:LN, timestamp=1521178191355, value=XYZ
+ 2                    column=CustomerName:MN, timestamp=1521178178140, value=PQR
+ 3                    column=CustomerName:MN, timestamp=1521178157816, value=PQR
+3 row(s) in 0.0520 seconds
+
+hbase(main):015:0> exit
+
+student@student5:/$ cd /usr/local
+student@student5:/usr/local$ cd hive
+student@student5:/usr/local/hive$ cd bin
+student@student5:/usr/local/hive/bin$ ./hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/edureka/apache-hive-2.1.0-bin/lib/log4j-slf4j-impl-2.4.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/hadoop/hadoop-2.7.0/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+Logging initialized using configuration in jar:file:/home/edureka/apache-hive-2.1.0-bin/lib/hive-common-2.1.0.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+hive> student@student5:/usr/local/hive/bin$ 
+student@student5:/usr/local/hive/bin$ ./hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/edureka/apache-hive-2.1.0-bin/lib/log4j-slf4j-impl-2.4.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/hadoop/hadoop-2.7.0/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+Logging initialized using configuration in jar:file:/home/edureka/apache-hive-2.1.0-bin/lib/hive-common-2.1.0.jar!/hive-log4j2.properties Async: true
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+hive> set hive.cli.print.current.db=true;
+hive (default)> create database ourfirstdatabase;
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. Database ourfirstdatabase already exists
+hive (default)> use ourfirstdatabase;
+OK
+Time taken: 0.014 seconds
+
+hive (ourfirstdatabase)> show tables;
+OK
+emp
+Time taken: 0.361 seconds, Fetched: 1 row(s)
+
+hive (ourfirstdatabase)> 
+hive (ourfirstdatabase)> ALTER DATABASE ourfirstdatabase SET DBPROPERTIES('creator'='psb','created_for'='learing');
+hive (ourfirstdatabase)> DESCRIBE DATABASE EXTENDED ourfirstdatabase;
+OK
+ourfirstdatabase		hdfs://localhost:9000/user/hive/warehouse/ourfirstdatabase.db	student	USER	{creator=psb, created_for=learing}
+Time taken: 0.015 seconds, Fetched: 1 row(s)
+
+
+hive> create external table hive_hbase_table(key int,name map<string,string>,info map<string,string>) stored by 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ("hbase.columns.mapping"=":key,CustomerName:,ContactInfo:")TBLPROPERTIES ("hbase.table.name"="CustomerInformation");
+OK
+Time taken: 1.255 seconds
+HIVE> SELECT * FROM HIVE_HBASE_TABLE;
+OK
+1	{"FN":"Pallavi","LN":"Bangare","MN":"Sunil"}	{"EA":"psbangare.sae@sinhgad.edu","SA":"Pune"}
+2	{"FN":"ABC","LN":"XYZ","MN":"PQR"}	{"EA":"abc@gmail.com","SA":"mumbai"}
+3	{"MN":"PQR"}	{}
+Time taken: 1.869 seconds, Fetched: 3 row(s)
+hive> 
+
+
+
+
